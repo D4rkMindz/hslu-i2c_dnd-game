@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h> // Include for atoi function
 
 #include "game.h"
 #include "utils.h"
