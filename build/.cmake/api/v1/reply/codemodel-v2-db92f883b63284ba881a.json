@@ -1,0 +1,60 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"jsonFile" : "directory-.-Debug-d0094a50bb2071803777.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.29"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "first",
+					"targetIndexes" : 
+					[
+						0
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "first::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-first-Debug-b833e976cfc527336ab5.json",
+					"name" : "first",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "C:/Users/Andrea/OneDrive - Hochschule Luzern/Desktop/UNI/3/ADS/Practice_and_Exercises/C/hslu-i2c_dnd-game/build",
+		"source" : "C:/Users/Andrea/OneDrive - Hochschule Luzern/Desktop/UNI/3/ADS/Practice_and_Exercises/C/hslu-i2c_dnd-game"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 7
+	}
+}
