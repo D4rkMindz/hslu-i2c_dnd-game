@@ -535,11 +535,11 @@
 			[
 				{
 					"name" : "HELPSTRING",
-					"value" : "Install path prefix, prepended onto install directories."
+					"value" : "No help, variable specified on the command line."
 				}
 			],
-			"type" : "PATH",
-			"value" : "C:/Program Files (x86)/first"
+			"type" : "STRING",
+			"value" : "C:/Users/Andrea/OneDrive - Hochschule Luzern/Desktop/Andrea/Code/C-Project"
 		},
 		{
 			"name" : "CMAKE_LINKER",
