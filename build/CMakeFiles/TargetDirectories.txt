@@ -1,0 +1,3 @@
+C:/Users/Andrea/OneDrive - Hochschule Luzern/Desktop/UNI/3/ADS/Practice_and_Exercises/C/hslu-i2c_dnd-game/build/CMakeFiles/first.dir
+C:/Users/Andrea/OneDrive - Hochschule Luzern/Desktop/UNI/3/ADS/Practice_and_Exercises/C/hslu-i2c_dnd-game/build/CMakeFiles/edit_cache.dir
+C:/Users/Andrea/OneDrive - Hochschule Luzern/Desktop/UNI/3/ADS/Practice_and_Exercises/C/hslu-i2c_dnd-game/build/CMakeFiles/rebuild_cache.dir

@@ -4,7 +4,6 @@
 
 #include "game.h"
 #include "utils.h"
-
 #include "character/character.h"
 #include "combat/combat.h"
 #include "map/map.h"
@@ -31,7 +30,7 @@ _Bool check_exit_confirmation(char command[50])
 int displayRoomOptions(Room *room)
 {
     int optionCount = 1;
-    printf("\n--- Room Options ---\n");
+    printf("\n\n--- Room Options ---\n\n");
     printf("%d) Return to previous room\n", optionCount++); // Option 1
 
     printf("%d) Look around\n", optionCount++); // Option 2
@@ -62,16 +61,38 @@ int displayRoomOptions(Room *room)
     // Option for secret passage if revealed
     if (room->secretPassageRevealed)
     {
-        printf("%d) Use secret passage\n", optionCount++);
+        printf("%d) Use secret passage\n\n", optionCount++);
     }
 
     return optionCount - 1; // Return the total number of options displayed
 }
 
+// display room description
+void displayRoomDescription(Room *room)
+{
+    printf("\n--- Room Description ---\n");
+    for (int i = 0; i < room->descriptionLineCount; i++)
+    {
+        printf("%s\n", room->description[i]);
+    }
+    printf("\n------------------------------------------\n");
+}
+
+// display look-around text
+void displayLookAroundText(Room *room)
+{
+    printf("\n--- Look Around ---\n");
+    for (int i = 0; i < room->lookAroundLineCount; i++)
+    {
+        printf("%s\n", room->lookAroundText[i]);
+    }
+    printf("\n------------------------------------------\n");
+}
+
 void startGame()
 {
     Room **allRooms = initializeMap(); // Initialize rooms using initializeMap
-    int currentRoom = 1;               // Start in Room 1 (Tutorial)
+    int currentRoom = 0;               // Start in Room 0 (Tutorial)
     Room *room = getRoom(currentRoom);
     char command[50];
     int choice;
@@ -80,13 +101,13 @@ void startGame()
     while (1)
     {
         // Display room description upon entry
-        printf("\n%s\n", room->description);
+        displayRoomDescription(room);
 
         // Display room-specific options and get the count of options available
         lastOptionIndex = displayRoomOptions(room);
 
         // Get input from the player
-        printf("\nEnter a command or option number: ");
+        printf("\n\n\nEnter a command or option number: ");
         scanf("%s", command);
         to_lower_string(command);
 
@@ -112,7 +133,7 @@ void startGame()
 
             if (choice < 1 || choice > lastOptionIndex)
             {
-                printf("Invalid option. Type 'help' for a list of available commands.\n");
+                printf("\nInvalid option. Type 'help' for a list of available commands.\n\n\n");
                 continue;
             }
 
@@ -123,62 +144,62 @@ void startGame()
             if (choice == optionIndex++)
             {
                 printf("Returning to the previous room...\n");
-                currentRoom--; // !!!! TO-DO: needs to be adjusted to account for the temple structure!!! (havent figured out how im going to do that yet)
+                currentRoom--; // Adjust for the temple structure if needed
                 room = getRoom(currentRoom);
             }
             // Option 2: Look around
             else if (choice == optionIndex++)
             {
-                printf("%s\n", room->lookAroundText);
+                displayLookAroundText(room);
                 if (room->hasSecretPassage && !room->secretPassageRevealed)
                 {
-                    printf("You discover a hidden passage!\n");
+                    printf("You discover a hidden passage!\n\n");
                     room->secretPassageRevealed = true;
                 }
             }
             // Option 3: Fight monster (if present)
             else if (room->hasMonster && !room->monsterDefeated && choice == optionIndex++)
             {
-                Character slime = getSlime(); // Example monster - will have to be adjusted for different monster types
-                startCombat(&slime);          // adjust for whatever function necessary for combat
+                Character slime = getSlime(); // Example monster, adjust as needed
+                startCombat(&slime);          // Adjust for specific combat function
                 room->monsterDefeated = true;
-                printf("The monster has been defeated!\n");
+                printf("The monster has been defeated!\n\n");
             }
             // Handle exits based on room-specific configuration
             else if (room->exits[NORTH] != NONE && choice == optionIndex++)
             {
-                printf("You exit north.\n");
+                printf("You exit north.\n\n");
                 currentRoom = room->exits[NORTH];
                 room = getRoom(currentRoom);
             }
             else if (room->exits[EAST] != NONE && choice == optionIndex++)
             {
-                printf("You exit east.\n");
+                printf("You exit east.\n\n");
                 currentRoom = room->exits[EAST];
                 room = getRoom(currentRoom);
             }
             else if (room->exits[SOUTH] != NONE && choice == optionIndex++)
             {
-                printf("You exit south.\n");
+                printf("You exit south.\n\n");
                 currentRoom = room->exits[SOUTH];
                 room = getRoom(currentRoom);
             }
             else if (room->exits[WEST] != NONE && choice == optionIndex++)
             {
-                printf("You exit west.\n");
+                printf("You exit west.\n\n");
                 currentRoom = room->exits[WEST];
                 room = getRoom(currentRoom);
             }
             // Secret passage if revealed
             else if (room->secretPassageRevealed && choice == optionIndex++)
             {
-                printf("You enter the secret passage.\n");
-                currentRoom = room->exits[NORTH]; // !!! TO-DO: still needs to be adjusted to account for various passage directions
+                printf("You enter the secret passage.\n\n");
+                currentRoom = room->exits[NORTH]; // Adjust for various passage directions if needed
                 room = getRoom(currentRoom);
             }
             else
             {
-                printf("Invalid option. Please try again.\n");
+                printf("Invalid option. Please try again.\n\n");
             }
         }
     }

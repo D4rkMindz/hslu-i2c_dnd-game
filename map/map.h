@@ -3,6 +3,9 @@
 
 #include <stdbool.h>
 
+#define MAX_DESCRIPTION_LINES 5
+#define MAX_LOOK_AROUND_LINES 5
+
 // Enum to represent directions for room exits
 typedef enum
 {
@@ -20,9 +23,11 @@ typedef struct
     bool hasSecretPassage;
     bool monsterDefeated;
     bool secretPassageRevealed;
-    int exits[4];               // Stores room numbers for exits in NORTH, EAST, SOUTH, WEST directions
-    const char *description;    // Short description shown upon entering the room
-    const char *lookAroundText; // Detailed text shown when looking around
+    int exits[4];                                      // Stores room numbers for exits in NORTH, EAST, SOUTH, WEST directions
+    const char *description[MAX_DESCRIPTION_LINES];    // Array for multi-line descriptions
+    const char *lookAroundText[MAX_LOOK_AROUND_LINES]; // Array for multi-line look-around texts
+    int descriptionLineCount;                          // Number of lines in the description
+    int lookAroundLineCount;                           // Number of lines in the look-around text
 } Room;
 
 // Initializes entire map and returns a list of pointers to each room
