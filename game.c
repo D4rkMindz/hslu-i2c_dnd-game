@@ -17,7 +17,7 @@ void initializeGame()
 
 _Bool check_exit_confirmation(char command[50])
 {
-    printf("Are you sure you want to exit? [y/N]\n");
+    printf("Are you sure you want to exit? [y/n]\n");
     scanf("%s", command);
     if (command[0] == 'y')
     {
@@ -70,7 +70,7 @@ int displayRoomOptions(Room *room)
 // display room description
 void displayRoomDescription(Room *room)
 {
-    printf("\n--- Room Description ---\n");
+    printf("\n\n------------------------------------------\n\n");
     for (int i = 0; i < room->descriptionLineCount; i++)
     {
         printf("%s\n", room->description[i]);
@@ -81,7 +81,7 @@ void displayRoomDescription(Room *room)
 // display look-around text
 void displayLookAroundText(Room *room)
 {
-    printf("\n--- Look Around ---\n");
+    printf("\n\n...You look around...\n\n");
     for (int i = 0; i < room->lookAroundLineCount; i++)
     {
         printf("%s\n", room->lookAroundText[i]);
