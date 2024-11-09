@@ -1,0 +1,44 @@
+[
+{
+  "directory": "C:/Users/Andrea/OneDrive - Hochschule Luzern/Desktop/UNI/3/ADS/Practice_and_Exercises/C/hslu-i2c_dnd-game/build",
+  "command": "C:\\msys64\\mingw64\\bin\\gcc.exe   -g -std=gnu99 -o CMakeFiles\\first.dir\\main.c.obj -c \"C:\\Users\\Andrea\\OneDrive - Hochschule Luzern\\Desktop\\UNI\\3\\ADS\\Practice_and_Exercises\\C\\hslu-i2c_dnd-game\\main.c\"",
+  "file": "C:/Users/Andrea/OneDrive - Hochschule Luzern/Desktop/UNI/3/ADS/Practice_and_Exercises/C/hslu-i2c_dnd-game/main.c",
+  "output": "CMakeFiles/first.dir/main.c.obj"
+},
+{
+  "directory": "C:/Users/Andrea/OneDrive - Hochschule Luzern/Desktop/UNI/3/ADS/Practice_and_Exercises/C/hslu-i2c_dnd-game/build",
+  "command": "C:\\msys64\\mingw64\\bin\\gcc.exe   -g -std=gnu99 -o CMakeFiles\\first.dir\\game.c.obj -c \"C:\\Users\\Andrea\\OneDrive - Hochschule Luzern\\Desktop\\UNI\\3\\ADS\\Practice_and_Exercises\\C\\hslu-i2c_dnd-game\\game.c\"",
+  "file": "C:/Users/Andrea/OneDrive - Hochschule Luzern/Desktop/UNI/3/ADS/Practice_and_Exercises/C/hslu-i2c_dnd-game/game.c",
+  "output": "CMakeFiles/first.dir/game.c.obj"
+},
+{
+  "directory": "C:/Users/Andrea/OneDrive - Hochschule Luzern/Desktop/UNI/3/ADS/Practice_and_Exercises/C/hslu-i2c_dnd-game/build",
+  "command": "C:\\msys64\\mingw64\\bin\\gcc.exe   -g -std=gnu99 -o CMakeFiles\\first.dir\\combat\\combat.c.obj -c \"C:\\Users\\Andrea\\OneDrive - Hochschule Luzern\\Desktop\\UNI\\3\\ADS\\Practice_and_Exercises\\C\\hslu-i2c_dnd-game\\combat\\combat.c\"",
+  "file": "C:/Users/Andrea/OneDrive - Hochschule Luzern/Desktop/UNI/3/ADS/Practice_and_Exercises/C/hslu-i2c_dnd-game/combat/combat.c",
+  "output": "CMakeFiles/first.dir/combat/combat.c.obj"
+},
+{
+  "directory": "C:/Users/Andrea/OneDrive - Hochschule Luzern/Desktop/UNI/3/ADS/Practice_and_Exercises/C/hslu-i2c_dnd-game/build",
+  "command": "C:\\msys64\\mingw64\\bin\\gcc.exe   -g -std=gnu99 -o CMakeFiles\\first.dir\\character\\inventory.c.obj -c \"C:\\Users\\Andrea\\OneDrive - Hochschule Luzern\\Desktop\\UNI\\3\\ADS\\Practice_and_Exercises\\C\\hslu-i2c_dnd-game\\character\\inventory.c\"",
+  "file": "C:/Users/Andrea/OneDrive - Hochschule Luzern/Desktop/UNI/3/ADS/Practice_and_Exercises/C/hslu-i2c_dnd-game/character/inventory.c",
+  "output": "CMakeFiles/first.dir/character/inventory.c.obj"
+},
+{
+  "directory": "C:/Users/Andrea/OneDrive - Hochschule Luzern/Desktop/UNI/3/ADS/Practice_and_Exercises/C/hslu-i2c_dnd-game/build",
+  "command": "C:\\msys64\\mingw64\\bin\\gcc.exe   -g -std=gnu99 -o CMakeFiles\\first.dir\\map\\map.c.obj -c \"C:\\Users\\Andrea\\OneDrive - Hochschule Luzern\\Desktop\\UNI\\3\\ADS\\Practice_and_Exercises\\C\\hslu-i2c_dnd-game\\map\\map.c\"",
+  "file": "C:/Users/Andrea/OneDrive - Hochschule Luzern/Desktop/UNI/3/ADS/Practice_and_Exercises/C/hslu-i2c_dnd-game/map/map.c",
+  "output": "CMakeFiles/first.dir/map/map.c.obj"
+},
+{
+  "directory": "C:/Users/Andrea/OneDrive - Hochschule Luzern/Desktop/UNI/3/ADS/Practice_and_Exercises/C/hslu-i2c_dnd-game/build",
+  "command": "C:\\msys64\\mingw64\\bin\\gcc.exe   -g -std=gnu99 -o CMakeFiles\\first.dir\\utils.c.obj -c \"C:\\Users\\Andrea\\OneDrive - Hochschule Luzern\\Desktop\\UNI\\3\\ADS\\Practice_and_Exercises\\C\\hslu-i2c_dnd-game\\utils.c\"",
+  "file": "C:/Users/Andrea/OneDrive - Hochschule Luzern/Desktop/UNI/3/ADS/Practice_and_Exercises/C/hslu-i2c_dnd-game/utils.c",
+  "output": "CMakeFiles/first.dir/utils.c.obj"
+},
+{
+  "directory": "C:/Users/Andrea/OneDrive - Hochschule Luzern/Desktop/UNI/3/ADS/Practice_and_Exercises/C/hslu-i2c_dnd-game/build",
+  "command": "C:\\msys64\\mingw64\\bin\\gcc.exe   -g -std=gnu99 -o CMakeFiles\\first.dir\\character\\character.c.obj -c \"C:\\Users\\Andrea\\OneDrive - Hochschule Luzern\\Desktop\\UNI\\3\\ADS\\Practice_and_Exercises\\C\\hslu-i2c_dnd-game\\character\\character.c\"",
+  "file": "C:/Users/Andrea/OneDrive - Hochschule Luzern/Desktop/UNI/3/ADS/Practice_and_Exercises/C/hslu-i2c_dnd-game/character/character.c",
+  "output": "CMakeFiles/first.dir/character/character.c.obj"
+}
+]

@@ -13,7 +13,7 @@ void initializeGame()
 {
     printf("Welcome to The Temple of the Fallen King!\n");
     createCharacter();
-    initializeMap();
+    Room **allRooms = initializeMap();
 }
 
 _Bool check_exit_confirmation(char command[50])

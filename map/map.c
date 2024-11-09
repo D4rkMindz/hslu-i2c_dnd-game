@@ -40,80 +40,80 @@ Room **initializeMap()
         rooms[i]->lookAroundText = "";
     }
 
-    // Room 1: Tutorial Room
-    setRoomExits(rooms[1], 3, NONE, NONE, NONE);
-    setRoomDescriptions(rooms[1],
-                        "1 description",
-                        "1 lookaround text");
+    // Room 0: Tutorial Room
+    setRoomExits(rooms[0], 2, NONE, NONE, NONE);
+    setRoomDescriptions(rooms[0],
+                        "0 description",
+                        "0 lookaround text");
 
-    // Room 3: First Room with secret passage and monster
-    setRoomExits(rooms[3], 6, 4, NONE, 2);
-    rooms[3]->hasSecretPassage = true;
-    rooms[3]->hasMonster = true;
-    setRoomDescriptions(rooms[3],
-                        "3 description",
-                        "3 lookaround text");
-
-    // Room 2: Two visible exits
-    setRoomExits(rooms[2], 5, 3, NONE, NONE);
+    // Room 2: First Room with secret passage and monster
+    setRoomExits(rooms[2], 5, 3, NONE, 1);
+    rooms[2]->hasSecretPassage = true;
+    rooms[2]->hasMonster = true;
     setRoomDescriptions(rooms[2],
                         "2 description",
                         "2 lookaround text");
 
-    // Room 4: Two visible exits
-    setRoomExits(rooms[4], 7, NONE, NONE, 3);
-    setRoomDescriptions(rooms[4],
-                        "4 description",
-                        "4 lookaround text");
+    // Room 1: Two visible exits
+    setRoomExits(rooms[1], 4, 2, NONE, NONE);
+    setRoomDescriptions(rooms[1],
+                        "1 description",
+                        "1 lookaround text");
 
-    // Room 6: Four exits, one hidden to Room 5
-    setRoomExits(rooms[6], 9, 7, 3, 5);
-    rooms[5]->hasSecretPassage = true;
-    setRoomDescriptions(rooms[6],
-                        "6 description",
-                        "6 lookaround text");
+    // Room 3: Two visible exits
+    setRoomExits(rooms[3], 6, NONE, NONE, 2);
+    setRoomDescriptions(rooms[3],
+                        "3 description",
+                        "3 lookaround text");
 
-    // Room 5: Visible and hidden exit, with a monster
-    setRoomExits(rooms[5], 8, NONE, 2, NONE);
-    rooms[5]->hasMonster = true;
+    // Room 5: Four exits, one hidden to Room 4
+    setRoomExits(rooms[5], 8, 6, 2, 4);
+    rooms[4]->hasSecretPassage = true;
     setRoomDescriptions(rooms[5],
                         "5 description",
                         "5 lookaround text");
 
-    // Room 7: Visible and hidden exit, with a monster
-    setRoomExits(rooms[7], 10, NONE, 4, NONE);
-    rooms[7]->hasSecretPassage = true;
-    rooms[7]->hasMonster = true;
+    // Room 4: Visible and hidden exit, with a monster
+    setRoomExits(rooms[4], 7, NONE, 1, NONE);
+    rooms[4]->hasMonster = true;
+    setRoomDescriptions(rooms[4],
+                        "4 description",
+                        "4 lookaround text");
+
+    // Room 6: Visible and hidden exit, with a monster
+    setRoomExits(rooms[6], 9, NONE, 3, NONE);
+    rooms[6]->hasSecretPassage = true;
+    rooms[6]->hasMonster = true;
+    setRoomDescriptions(rooms[6],
+                        "6 description",
+                        "6 lookaround text");
+
+    // Room 7: Two exits
+    setRoomExits(rooms[7], NONE, 8, 4, NONE);
     setRoomDescriptions(rooms[7],
                         "7 description",
                         "7 lookaround text");
 
-    // Room 8: Two exits
-    setRoomExits(rooms[8], NONE, 9, 5, NONE);
-    setRoomDescriptions(rooms[8],
-                        "8 description",
-                        "8 lookaround text");
-
-    // Room 10: Two exits
-    setRoomExits(rooms[10], NONE, NONE, 7, 9);
-    setRoomDescriptions(rooms[10],
-                        "10 description",
-                        "10 lookaround text");
-
-    // Room 9: Visible and hidden exit, with a monster
-    setRoomExits(rooms[9], 11, 10, NONE, 8);
-    rooms[9]->hasSecretPassage = true;
-    rooms[9]->hasMonster = true;
+    // Room 9: Two exits
+    setRoomExits(rooms[9], NONE, NONE, 6, 8);
     setRoomDescriptions(rooms[9],
                         "9 description",
                         "9 lookaround text");
 
-    // Boss Room (Room 11) with a monster
-    setRoomExits(rooms[11], NONE, NONE, 9, NONE);
-    rooms[11]->hasMonster = true;
-    setRoomDescriptions(rooms[11],
-                        "11 description",
-                        "11 lookaround text");
+    // Room 8: Visible and hidden exit, with a monster
+    setRoomExits(rooms[8], 10, 9, NONE, 7);
+    rooms[8]->hasSecretPassage = true;
+    rooms[8]->hasMonster = true;
+    setRoomDescriptions(rooms[8],
+                        "8 description",
+                        "8 lookaround text");
+
+    // Boss Room (Room 10) with a monster
+    setRoomExits(rooms[10], NONE, NONE, 8, NONE);
+    rooms[10]->hasMonster = true;
+    setRoomDescriptions(rooms[10],
+                        "10 description",
+                        "10 lookaround text");
 
     return rooms;
 }
