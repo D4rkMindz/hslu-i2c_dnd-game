@@ -7,6 +7,7 @@ typedef struct {
     int health;
     int attackPower;
     int defense;
+    char main_weapon[MAX_WEAPON_NAME_LEN];
 } Character;
 
 void createCharacter();

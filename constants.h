@@ -1,4 +1,25 @@
 #ifndef CONSTANTS_H
 #define CONSTANTS_H
 #define MAX_NAME_LEN 50
+#define MAX_WEAPON_NAME_LEN 50
+
+// Character Constants
+#define CHARACTER_HEALTH 50
+#define BARBARIAN_ATTACK 13
+#define BARBARIAN_DEFENSE 10
+#define WIZARD_ATTACK 10
+#define WIZARD_DEFENSE 13
+
+// Enemy Character Constants
+#define SLIME_HEALTH 10
+#define SLIME_ATTACK 5
+#define SLIME_DEFENSE 5
+
+#define SKELETON_HEALTH 20
+#define SKELETON_ATTACK 10
+#define SKELETON_DEFENSE 5
+
+#define ENDBOSS_HEALTH 150
+#define ENDBOSS_ATTACK 20
+#define ENDBOSS_DEFENSE 10
 #endif //CONSTANTS_H

@@ -10,22 +10,22 @@ static Character player;
 
 void createCharacter() {
     char class[10];
-    printf("Select your characters class [mage,wizard]:");
+    fancy_print("Select your characters class [mage,wizard]:");
     scanf("%s", class);
-    printf("Enter your character's name: ");
+    fancy_print("Enter your character's name:");
     scanf("%s", player.name);
     int health = 100;
     int attackPower = 10;
     int defense = 5;
-    if (equals(class, "mage")) {
-        health = 200;
-        attackPower = 20;
-        defense = 5;
+    if (equals(class, "barbarian")) {
+        health = CHARACTER_HEALTH;
+        attackPower = BARBARIAN_ATTACK;
+        defense = BARBARIAN_DEFENSE;
     }
     if (equals(class, "wizard")) {
-        health = 100;
-        attackPower = 50;
-        defense = 20;
+        health = CHARACTER_HEALTH;
+        attackPower = WIZARD_ATTACK;
+        defense = WIZARD_DEFENSE;
     }
     player.health = health;
     player.attackPower = attackPower;
@@ -34,15 +34,15 @@ void createCharacter() {
 }
 
 Character getSlime() {
-    return getEnemy("Slime", 10, 5, 10);
+    return getEnemy("Slime", SLIME_HEALTH, SLIME_ATTACK, SLIME_DEFENSE);
 }
 
 Character getSkeleton() {
-    return getEnemy("Skeleton", 50, 10, 30);
+    return getEnemy("Skeleton", SKELETON_HEALTH, SKELETON_ATTACK, SKELETON_DEFENSE);
 }
 
 Character getKingSkeleton() {
-    return getEnemy("Skeleton King", 150, 50, 50);
+    return getEnemy("Skeleton King", ENDBOSS_HEALTH, ENDBOSS_ATTACK, ENDBOSS_DEFENSE);
 }
 
 Character *getPlayerCharacter() {
