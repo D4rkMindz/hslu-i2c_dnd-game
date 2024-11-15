@@ -9,8 +9,10 @@
 #define CHARACTER_POINT_VALUE 0
 #define BARBARIAN_ATTACK 13
 #define BARBARIAN_DEFENSE 10
+#define BARBARIAN_WEAPON "Axe"
 #define WIZARD_ATTACK 10
 #define WIZARD_DEFENSE 13
+#define WIZARD_WEAPON "Magic Missle"
 
 // Enemy Character Constants
 #define SLIME_HEALTH 10
