@@ -54,7 +54,7 @@ Character *getPlayerCharacter() {
     return &player;
 }
 
-Character getEnemy(char name[MAX_NAME_LEN], const int health, const int attackPower, const int defense, char main_weapon[MAX_WEAPON_NAME_LEN], int healthReturn, int pointValue) {
+Character getEnemy(char name[MAX_NAME_LEN], const int health, const int attackPower, const int defense, char main_weapon[MAX_WEAPON_NAME_LEN], const int healthReturn, const int pointValue) {
     Character enemy;
     strcpy(enemy.name, name);
     enemy.health = health;
