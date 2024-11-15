@@ -17,22 +17,24 @@ void createCharacter() {
     int health = 100;
     int attackPower = 10;
     int defense = 5;
+    char playerWeapon[25];
     
     if (equals(class, "barbarian")) {
         health = CHARACTER_HEALTH;
         attackPower = BARBARIAN_ATTACK;
         defense = BARBARIAN_DEFENSE;
-        player.main_weapon = BARBARIAN_WEAPON;
+        strcpy(playerWeapon, BARBARIAN_WEAPON);
     }
     if (equals(class, "wizard")) {
         health = CHARACTER_HEALTH;
         attackPower = WIZARD_ATTACK;
         defense = WIZARD_DEFENSE;
-        player.main_weapon = WIZARD_WEAPON;
+        strcpy(playerWeapon, WIZARD_WEAPON);
     }
     player.health = health;
     player.attackPower = attackPower;
     player.defense = defense;
+    strcpy(player.main_weapon, playerWeapon);
     player.healthReturn = CHARACTER_HEALTH_RETURN;
     player.pointValue = CHARACTER_POINT_VALUE;
     printf("Character %s created with %d health.\n", player.name, player.health);
