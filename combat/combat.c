@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "combat.h"
+#include <time.h>
+
 #include "../character/character.h"
 // Curently holding off including the facy print I want to ask Björn how it works fully before using.
 // #include "../utils.h"
