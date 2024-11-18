@@ -1,8 +1,15 @@
 #include <ctype.h>
 #include <stdio.h>
 #include <string.h>
-#include <unistd.h>
 #include <stdarg.h>
+
+#ifdef _WIN32
+#include <Windows.h>
+#else
+#include <unistd.h>
+#endif
+
+signed int pollingDelay = 10; // in miliseconds
 
 char *to_lower_string(char *str) {
     for (char *p = str; *p; p++) *p = tolower(*p);
@@ -31,7 +38,11 @@ void fancy_print(const char *str, ...) {
         if (*text == '\n') {
             while (getchar() != '\n');
         }
-        usleep(10 * 1000); // 10k nanoseconds = 10 miliseconds
+#ifdef _WIN32
+        Sleep(pollingDelay);
+#else
+        usleep(pollingDelay * 1000); /* sleep for 100 milliSeconds */
+#endif
         text++;
     }
 }
