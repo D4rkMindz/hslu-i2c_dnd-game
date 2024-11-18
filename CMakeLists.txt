@@ -8,8 +8,6 @@ add_executable(first main.c
         game.h
         combat/combat.c
         combat/combat.h
-        character/inventory.c
-        character/inventory.h
         map/map.c
         map/map.h
         game.c
@@ -17,4 +15,6 @@ add_executable(first main.c
         utils.c
         utils.c
         character/character.c
-        character/character.h)
+        character/character.h
+        highscore/highscore.c
+        highscore/highscore.c)
