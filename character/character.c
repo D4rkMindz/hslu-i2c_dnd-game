@@ -18,12 +18,18 @@ static Character player;
 
 void createCharacter() {
     char class[10];
+    CharacterType type;
     while (!equals(class, "barbarian") && !equals(class, "wizard")) {
         fancy_print("Select your characters class [barbarian,wizard]:");
-        scanf("%s", class);
+        get_input("%s", class);
+    }
+    if (equals(class, "barbarian")) {
+        type = BARBARIAN;
+    } else {
+        type = WIZARD;
     }
     fancy_print("Enter your character's name:");
-    scanf("%s", player.name);
+    get_input("%s", player.name);
     int health = CHARACTER_HEALTH;
     int attackPower = BARBARIAN_ATTACK;
     int defense = BARBARIAN_DEFENSE;
@@ -47,7 +53,28 @@ void createCharacter() {
     strcpy(player.main_weapon, playerWeapon);
     player.healthReturn = CHARACTER_HEALTH_RETURN;
     player.pointValue = CHARACTER_POINT_VALUE;
+    player.type = type;
     fancy_print("Character %s created with %d health.\n", player.name, player.health);
+}
+
+void addHealth(Character *character, signed int health) {
+    character->health += health;
+
+    if (character->health > CHARACTER_HEALTH) {
+        character->health = CHARACTER_HEALTH;
+    }
+}
+
+void addPoints(Character *character, int points) {
+    character->pointValue += points;
+}
+
+void addDamage(Character *character, signed int health) {
+    character->health -= health;
+}
+
+_Bool isHealthy(Character *character) {
+    return character->health > 0;
 }
 
 Character getSlime() {

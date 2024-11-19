@@ -15,8 +15,8 @@ void initializeGame() {
 }
 
 _Bool check_exit_confirmation(char command[50]) {
-    printf("Are you sure you want to exit? [y/n]\n");
-    scanf("%s", command);
+    fancy_print("Are you sure you want to exit? [y/n]\n");
+    get_input("%s", command);
     if (command[0] == 'y') {
         return 1;
     }
@@ -26,32 +26,31 @@ _Bool check_exit_confirmation(char command[50]) {
 // Display room-specific options dynamically based on room state
 int displayRoomOptions(Room *room) {
     int optionCount = 1;
-    printf("\n\n--- Room Options ---\n\n");
-    printf("%d) Return to previous room\n", optionCount++); // Option 1
-
-    printf("%d) Look around\n", optionCount++); // Option 2
+    printf("--- Room Options ---\n");
+    fancy_print("%d) Return to previous room\n", optionCount++); // Option 1
+    fancy_print("%d) Look around\n", optionCount++); // Option 2
 
     if (room->hasMonster && !room->monsterDefeated) {
-        printf("%d) Fight monster\n", optionCount++); // Option 3 - if a monster is present
+        fancy_print("%d) Fight monster\n", optionCount++); // Option 3 - if a monster is present
     }
 
     // Display exit options dynamically based on available exits in each direction
     if (room->exits[NORTH] != NONE) {
-        printf("%d) Exit north\n", optionCount++);
+        fancy_print("%d) Exit north\n", optionCount++);
     }
     if (room->exits[EAST] != NONE) {
-        printf("%d) Exit east\n", optionCount++);
+        fancy_print("%d) Exit east\n", optionCount++);
     }
     if (room->exits[SOUTH] != NONE) {
-        printf("%d) Exit south\n", optionCount++);
+        fancy_print("%d) Exit south\n", optionCount++);
     }
     if (room->exits[WEST] != NONE) {
-        printf("%d) Exit west\n", optionCount++);
+        fancy_print("%d) Exit west\n", optionCount++);
     }
 
     // Option for secret passage if revealed
     if (room->secretPassageRevealed) {
-        printf("%d) Use secret passage\n\n", optionCount++);
+        fancy_print("%d) Use secret passage\n", optionCount++);
     }
 
     return optionCount - 1; // Return the total number of options displayed
@@ -59,20 +58,19 @@ int displayRoomOptions(Room *room) {
 
 // display room description
 void displayRoomDescription(Room *room) {
-    printf("\n\n------------------------------------------\n\n");
-    for (int i = 0; i < room->descriptionLineCount; i++) {
-        printf("%s\n", room->description[i]);
-    }
     printf("\n------------------------------------------\n");
+    for (int i = 0; i < room->descriptionLineCount; i++) {
+        fancy_print("%s\n", room->description[i]);
+    }
+    printf("------------------------------------------\n");
 }
 
 // display look-around text
 void displayLookAroundText(Room *room) {
-    printf("\n\n...You look around...\n\n");
+    fancy_print("\n...You look around...\n");
     for (int i = 0; i < room->lookAroundLineCount; i++) {
-        printf("%s\n", room->lookAroundText[i]);
+        fancy_print("%s\n", room->lookAroundText[i]);
     }
-    printf("\n------------------------------------------\n");
 }
 
 void startGame() {
@@ -91,16 +89,16 @@ void startGame() {
         lastOptionIndex = displayRoomOptions(room);
 
         // Get input from the player
-        printf("\n\n\nEnter a command or option number: ");
-        scanf("%s", command);
+        printf("\nEnter a command or option number: ");
+        get_input("%s", command);
         to_lower_string(command);
 
         // Process global commands
         if (equals(command, "help")) {
-            printf("Available commands:\n");
-            printf("  help - Display this help message.\n");
-            printf("  exit - Exit the game.\n");
-            printf("Room-specific actions are available as numbered options.\n");
+            fancy_print("Available commands:\n");
+            fancy_print("  help - Display this help message.\n");
+            fancy_print("  exit - Exit the game.\n");
+            fancy_print("Room-specific actions are available as numbered options.\n");
         } else if (equals(command, "exit")) {
             if (check_exit_confirmation(command)) {
                 break;
@@ -110,7 +108,7 @@ void startGame() {
             choice = atoi(command);
 
             if (choice < 1 || choice > lastOptionIndex) {
-                printf("\nInvalid option. Type 'help' for a list of available commands.\n\n\n");
+                fancy_print("Invalid option. Type 'help' for a list of available commands.\n");
                 continue;
             }
 
@@ -119,7 +117,7 @@ void startGame() {
 
             // Option 1: Return to previous room
             if (choice == optionIndex++) {
-                printf("Returning to the previous room...\n");
+                fancy_print("Returning to the previous room...\n");
                 currentRoom--; // Adjust for the temple structure if needed
                 room = getRoom(currentRoom);
             }
@@ -127,7 +125,7 @@ void startGame() {
             else if (choice == optionIndex++) {
                 displayLookAroundText(room);
                 if (room->hasSecretPassage && !room->secretPassageRevealed) {
-                    printf("You discover a hidden passage!\n\n");
+                    fancy_print("You discover a hidden passage!\n\n");
                     room->secretPassageRevealed = true;
                 }
             }
@@ -136,36 +134,36 @@ void startGame() {
                 Character slime = getSlime(); // Example monster, adjust as needed
                 startCombat(&slime); // Adjust for specific combat function
                 room->monsterDefeated = true;
-                printf("The monster has been defeated!\n\n");
+                fancy_print("The monster has been defeated!\n\n");
             }
             // Handle exits based on room-specific configuration
             else if (room->exits[NORTH] != NONE && choice == optionIndex++) {
-                printf("You exit north.\n\n");
+                fancy_print("You exit north.\n");
                 currentRoom = room->exits[NORTH];
                 room = getRoom(currentRoom);
             } else if (room->exits[EAST] != NONE && choice == optionIndex++) {
-                printf("You exit east.\n\n");
+                fancy_print("You exit east.\n");
                 currentRoom = room->exits[EAST];
                 room = getRoom(currentRoom);
             } else if (room->exits[SOUTH] != NONE && choice == optionIndex++) {
-                printf("You exit south.\n\n");
+                fancy_print("You exit south.\n");
                 currentRoom = room->exits[SOUTH];
                 room = getRoom(currentRoom);
             } else if (room->exits[WEST] != NONE && choice == optionIndex++) {
-                printf("You exit west.\n\n");
+                fancy_print("You exit west.\n");
                 currentRoom = room->exits[WEST];
                 room = getRoom(currentRoom);
             }
             // Secret passage if revealed
             else if (room->secretPassageRevealed && choice == optionIndex++) {
-                printf("You enter the secret passage.\n\n");
+                fancy_print("You enter the secret passage.\n");
                 currentRoom = room->exits[NORTH]; // Adjust for various passage directions if needed
                 room = getRoom(currentRoom);
             } else {
-                printf("Invalid option. Please try again.\n\n");
+                fancy_print("Invalid option. Please try again.\n");
             }
         }
     }
 
-    printf("Thank you for playing");
+    fancy_print("Thank you for playing");
 }

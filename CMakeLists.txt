@@ -17,4 +17,6 @@ add_executable(first main.c
         character/character.c
         character/character.h
         highscore/highscore.c
-        highscore/highscore.c)
+        highscore/highscore.c
+        character/item.c
+        character/item.h)

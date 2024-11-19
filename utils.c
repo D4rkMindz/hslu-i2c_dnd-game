@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdarg.h>
+#include <sys/wait.h>
 
 #ifdef _WIN32
 #include <Windows.h>
@@ -21,6 +22,20 @@ _Bool equals(char *command, char *check) {
     return strcmp(command, check) == 0;
 }
 
+void sleep_ms(int ms) {
+#ifdef _WIN32
+    Sleep(ms);
+#else
+    usleep(ms * 1000); /* sleep for 100 milliSeconds */
+#endif
+}
+
+void get_input(const char *format, void *variable) {
+    scanf(format, variable);
+    char c;
+    while ((c = getchar()) != '\n' && c != EOF);
+}
+
 void fancy_print(const char *str, ...) {
     char buffer[1024]; // Buffer to hold the formatted string.
     va_list args;
@@ -31,18 +46,20 @@ void fancy_print(const char *str, ...) {
 
     const char *text = buffer;
 
-
     while (*text != '\0') {
-        putchar(*text);
-        fflush(stdout);
-        if (*text == '\n') {
-            while (getchar() != '\n');
+        if (*text == '\r') {
+            int input = getchar();
+            while (input != 10) {
+                input = getchar();
+                printf("waiting\n");
+                // do nothing
+            }
+            text++;
+        } else {
+            putchar(*text);
+            fflush(stdout);
         }
-#ifdef _WIN32
-        Sleep(pollingDelay);
-#else
-        usleep(pollingDelay * 1000); /* sleep for 100 milliSeconds */
-#endif
+        sleep_ms(pollingDelay);
         text++;
     }
 }

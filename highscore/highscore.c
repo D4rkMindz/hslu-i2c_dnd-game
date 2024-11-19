@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
+
+#include "../utils.h"
 #include "../character/character.h"
 
 void updateHighScore(Character* player) {
@@ -24,11 +26,11 @@ void updateHighScore(Character* player) {
         fprintf(file, "%d", player->pointValue);
         fclose(file);
 
-        printf("Congratulations you've reached a new High Score: %d\n", highScore);
+        fancy_print("Congratulations you've reached a new High Score: %d\n", highScore);
     
     // Shows the current high score
     } else {
-        printf("High Score remains: %d\n", highScore);
-        printf("Your Current Score: %d\n", player->pointValue);
+        fancy_print("High Score remains: %d\n", highScore);
+        fancy_print("Your Current Score: %d\n", player->pointValue);
     }
 }
