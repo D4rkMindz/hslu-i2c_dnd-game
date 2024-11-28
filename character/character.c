@@ -4,6 +4,8 @@
 #include "../utils.h"
 #include <string.h>
 
+#include "item.h"
+
 Character getEnemy(
     char name[MAX_NAME_LEN],
     int health,
@@ -55,6 +57,10 @@ void createCharacter() {
     player.pointValue = CHARACTER_POINT_VALUE;
     player.type = type;
     fancy_print("Character %s created with %d health.\n", player.name, player.health);
+
+    Potion felix = createPotion("Felix Felicis", POTION_SMALL);
+    fancy_print("You find a potion: %s. It gives you %d healthpoints", felix.name, felix.buff);
+    consumePotion(&player, felix);
 }
 
 void addHealth(Character *character, signed int health) {
