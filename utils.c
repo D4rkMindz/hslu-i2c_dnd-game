@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdarg.h>
-#include <sys/wait.h>
+#include <sys/time.h>
 
 #ifdef _WIN32
 #include <Windows.h>
@@ -36,30 +36,46 @@ void get_input(const char *format, void *variable) {
     while ((c = getchar()) != '\n' && c != EOF);
 }
 
+long _microtime() {
+    struct timeval currentTime;
+    gettimeofday(&currentTime, NULL);
+    return currentTime.tv_sec * (int) 1e6 + currentTime.tv_usec;
+}
+
 void fancy_print(const char *str, ...) {
     char buffer[1024]; // Buffer to hold the formatted string.
     va_list args;
 
     va_start(args, str);
-    vsnprintf(buffer, sizeof(buffer), str, args); // Format the string safely.
+    // format the string safely.
+    vsnprintf(buffer, sizeof(buffer), str, args);
     va_end(args);
 
     const char *text = buffer;
-
     while (*text != '\0') {
         if (*text == '\r') {
-            int input = getchar();
-            while (input != 10) {
-                input = getchar();
-                printf("waiting\n");
-                // do nothing
+            long now = _microtime();
+            long after = _microtime();
+            int c = 0;
+            // if the reaction time is less than 100ms,
+            // the input is actually from the buffer
+            while (c != '\n' || after - now < 100) {
+                c = getchar();
+                after = _microtime();
             }
+            // prevent the carriage return's "\n" from being printed
             text++;
         } else {
+            // prevent output of \r
             putchar(*text);
             fflush(stdout);
         }
         sleep_ms(pollingDelay);
+        fflush(stdout);
         text++;
     }
+
+
+    // reset the buffer
+    memset(buffer, 0, sizeof(buffer));
 }
