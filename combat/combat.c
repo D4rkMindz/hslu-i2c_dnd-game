@@ -6,7 +6,6 @@
 #include "../utils.h"
 #include "../character/character.h"
 // Curently holding off including the facy print I want to ask Björn how it works fully before using.
-
 void startCombat(Character *enemy) {
     Character *player = getPlayerCharacter();
 
@@ -16,7 +15,7 @@ void startCombat(Character *enemy) {
     srand(time(NULL));
     int randomValue = 0;
     //This is so we don't override every enemy (of that types) health
-    int action = 0;
+    signed int action = 0;
     int playerFumble = 0;
     int enemyFumble = 0;
     int playerDefense = player->defense;
@@ -29,12 +28,18 @@ void startCombat(Character *enemy) {
     while (isHealthy(player) && isHealthy(enemy)) {
         action = 0;
 
-        fancy_print("Choose your action: (1) Attack (2) Defend: ");
-        get_input("%d", &action);
         while (action != 1 && action != 2) {
-            fancy_print("That is not a valid input, please try again.\n");
+            if (action >= 2) {
+                fancy_print("That is not a valid input, please try again.\n");
+            }
             fancy_print("Choose your action: (1) Attack (2) Defend: ");
             get_input("%d", &action);
+
+            // ensure that if the user inputs anything equivalent to 0,
+            // the action will still count as invalid input
+            if (action == 0) {
+                action = 99;
+            }
             printf("\n");
         }
 
@@ -45,7 +50,7 @@ void startCombat(Character *enemy) {
             //If the enemys last attack was a 1 and the player rolls a 20 the enemy takes 4* the normal damage
             if (randomValue >= enemyDefense && randomValue == 20 && enemyFumble == 1) {
                 fancy_print(
-                    "You struck a weak point of the %s while it was off balance and your %s delt %d damage!\n",
+                    "You struck a weak point of the %s while it was off balance and your %s delt %d damage!\r",
                     enemy->name,
                     player->main_weapon,
                     playerAdvantageDoubleDamage
@@ -55,19 +60,19 @@ void startCombat(Character *enemy) {
                 //If the enemy last attack was a 1 and the player rolls high enough to hit the target takes 2* the damage
             } else if (randomValue >= enemyDefense && enemyFumble == 1) {
                 fancy_print(
-                    "You struck a weak point of the %s while it was off balance and your %s delt %d damage!\n",
+                    "You struck a weak point of the %s while it was off balance and your %s delt %d damage!\r",
                     enemy->name,
                     player->main_weapon,
                     playerAdvantageDoubleDamage
                 );
                 addDamage(enemy, playerDoubleDamage);
 
-                //The player rolls higher than the enemys AC
+                //The player rolls higher than the enemies AC
             } else if (randomValue >= enemyDefense) {
                 //If player rolls 20 applies 2* the damage
                 if (randomValue == 20) {
                     fancy_print(
-                        "You struck a weak point of the %s and your %s delt %d damage!\n",
+                        "You struck a weak point of the %s and your %s delt %d damage!\r",
                         enemy->name,
                         player->main_weapon,
                         playerDoubleDamage
@@ -76,14 +81,14 @@ void startCombat(Character *enemy) {
 
                     //If the player rolls a 1 the enemy has advantage on their next attack and the players defences is lowered for 1 round
                 } else if (randomValue == 1) {
-                    fancy_print("You critically missed the %s and left yourself open to attack!\n", enemy->name);
+                    fancy_print("You critically missed the %s and left yourself open to attack!\r", enemy->name);
                     playerFumble = 1;
                     playerDefense -= 5;
 
                     //If the player rolls high enough it applies the characters base damage
                 } else {
                     fancy_print(
-                        "You attacked the %s successfully and your %s delt %d damage!\n",
+                        "You attacked the %s successfully and your %s delt %d damage!\r",
                         enemy->name,
                         player->main_weapon,
                         player->attackPower
@@ -92,11 +97,11 @@ void startCombat(Character *enemy) {
                 }
                 //If the player doesn't roll high enough to hit the enemy
             } else {
-                fancy_print("Your attack missed the %s!\n", enemy->name);
+                fancy_print("Your attack missed the %s!\r", enemy->name);
             }
             // If the player choses defense it improves the players AC for 1 round
         } else if (action == 2) {
-            fancy_print("You fortified yourself against the %s's next attack.\n", enemy->name);
+            fancy_print("You fortified yourself against the %s's next attack.\r", enemy->name);
             playerDefense += 5;
         }
 
@@ -110,7 +115,7 @@ void startCombat(Character *enemy) {
             //If the players last attack was a 1 and the enemy rolls a 20 the player takes 4* the normal damage
             if (randomValue >= playerDefense && randomValue == 20 && playerFumble == 1) {
                 fancy_print(
-                    "The %s struck a weak point while you were off balance and its %s delt %d damage!\n",
+                    "The %s struck a weak point while you were off balance and its %s delt %d damage!\r",
                     enemy->name,
                     enemy->main_weapon,
                     playerAdvantageDoubleDamage
@@ -120,7 +125,7 @@ void startCombat(Character *enemy) {
                 //If the players last attack was a 1 and the enemy rolls high enough to hit the player takes 2* the damage
             } else if (randomValue >= playerDefense && playerFumble == 1) {
                 fancy_print(
-                    "The %s struck your weak point while you were off balance and its %s delt %d damage!\n",
+                    "The %s struck your weak point while you were off balance and its %s delt %d damage!\r",
                     enemy->name,
                     enemy->main_weapon,
                     enemyDoubleDamage
@@ -132,7 +137,7 @@ void startCombat(Character *enemy) {
                 //If enemy rolls 20 applies 2* the damage
                 if (randomValue == 20) {
                     fancy_print(
-                        "The %s struck your weak point and its %s delt %d damage!\n",
+                        "The %s struck your weak point and its %s delt %d damage!\r",
                         enemy->name,
                         enemy->main_weapon,
                         enemyDoubleDamage
@@ -141,14 +146,14 @@ void startCombat(Character *enemy) {
 
                     //If the enemy rolls a 1 the player has advantage on their next attack and the enemys defences is lowered for 1 round
                 } else if (randomValue == 1) {
-                    fancy_print("The %s critically missed you and left itself open to attack!\n", enemy->name);
+                    fancy_print("The %s critically missed you and left itself open to attack!\r", enemy->name);
                     enemyFumble = 1;
                     enemyDefense -= 5;
 
                     //If the player rolls high enough it applies the characters base damage
                 } else {
                     fancy_print(
-                        "The %s successfully hit you with its %s delt %d damage!\n",
+                        "The %s successfully hit you with its %s delt %d damage!\r",
                         enemy->name,
                         enemy->main_weapon,
                         enemy->attackPower
@@ -157,7 +162,7 @@ void startCombat(Character *enemy) {
                 }
                 //If the enemy doesn't roll high enough to hit the player
             } else {
-                fancy_print("The %s attack missed you!\n", enemy->name);
+                fancy_print("The %s attack missed you!\r", enemy->name);
             }
         }
         // Resets the players disadvantages before their next turn
@@ -166,17 +171,17 @@ void startCombat(Character *enemy) {
     }
 
     if (isHealthy(player)) {
-        fancy_print("You defeated the enemy!\n");
+        fancy_print("You defeated the enemy!\r");
         fancy_print(
-            "As you slay the %s you feel yourself revitalized with the life essance of the creature!\n",
+            "As you slay the %s you feel yourself revitalized with the life essance of the creature!",
             enemy->name
         );
-        fancy_print("You gain %d hit points!\n", enemy->healthReturn);
+        fancy_print("You gain %d hit points!\r", enemy->healthReturn);
         //Adds the health returned by killing the enemy type however if the added health is greater than max it is reset to the maximum
         addHealth(player, enemy->healthReturn);
         //When defeating the enemy it adds how valuable that enemy was (used for the highscore aspect)
         addPoints(player, enemy->pointValue);
     } else {
-        fancy_print("You have been defeated!\n");
+        fancy_print("You have been defeated!\r");
     }
 }
