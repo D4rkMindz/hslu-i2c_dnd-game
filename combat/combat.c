@@ -10,7 +10,7 @@ void startCombat(Character *enemy)
 {
     Character *player = getPlayerCharacter();
 
-    fancy_print("A %s appears!\n", enemy->name);
+    fancy_print("\nA %s appears!\n", enemy->name);
 
     srand(time(NULL));
     int randomValue = 0;
@@ -164,18 +164,24 @@ void startCombat(Character *enemy)
 
         playerDefense = player->defense;
         playerFumble = 0;
+
+        // Display current health points for both player and enemy
+        fancy_print("\n--- Current Health Points ---\n");
+        fancy_print("Your Health: %d HP\n", player->health);
+        fancy_print("Enemy's Health (%s): %d HP\n", enemy->name, enemy->health);
+        fancy_print("----------------------\n\n");
     }
 
     if (isHealthy(player))
     {
-        fancy_print("You defeated the enemy!\n");
+        fancy_print("\nYou defeated the enemy!\n");
         fancy_print("As you slay the %s, you feel revitalized!\n", enemy->name);
-        fancy_print("You gain %d hit points!\n", enemy->healthReturn);
+        fancy_print("You regain %d Health Points!\n", enemy->healthReturn);
         addHealth(player, enemy->healthReturn);
         addPoints(player, enemy->pointValue);
     }
     else
     {
-        fancy_print("You have been defeated!\n");
+        fancy_print("\nYou have been defeated!\n");
     }
 }

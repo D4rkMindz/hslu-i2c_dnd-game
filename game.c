@@ -10,7 +10,7 @@
 
 void initializeGame()
 {
-    printf("Welcome to The Temple of the Fallen King!\n");
+    printf("\n\nWelcome to The Temple of the Fallen King!\n\n");
     createCharacter();
     Room **allRooms = initializeMap();
 }
@@ -30,22 +30,24 @@ _Bool check_exit_confirmation(char command[50])
 int displayRoomOptions(Room *room, int currentRoom, RoomStack *roomHistory)
 {
     int optionCount = 1;
-    printf("--- Room Options ---\n");
+    printf("\n--- Room Options ---\n");
 
-    // Only display "Return to Previous Room" if not in Room 0 or Room 10 and history exists
-    if (currentRoom != 0 && currentRoom != 10 && !isEmpty(roomHistory))
+    // Add "Return to previous room" option only if not in Room 0
+    if (currentRoom != 0 && !isEmpty(roomHistory))
     {
-        fancy_print("%d) Return to previous room\n", optionCount++); // Option 1
+        fancy_print("%d) Return to previous room\n", optionCount++);
     }
 
-    fancy_print("%d) Look around\n", optionCount++); // Option 2
+    // Add "Look around" option
+    fancy_print("%d) Look around\n", optionCount++);
 
+    // Add "Fight monster" option if there is a monster in the room
     if (room->hasMonster && !room->monsterDefeated)
     {
-        fancy_print("%d) Fight monster\n", optionCount++); // Option 3 - if a monster is present
+        fancy_print("%d) Fight monster\n", optionCount++);
     }
 
-    // Display exit options dynamically based on available exits in each direction
+    // Display valid exits for the room
     if (room->exits[NORTH] != NONE)
     {
         fancy_print("%d) Exit north\n", optionCount++);
@@ -63,7 +65,7 @@ int displayRoomOptions(Room *room, int currentRoom, RoomStack *roomHistory)
         fancy_print("%d) Exit west\n", optionCount++);
     }
 
-    // Option for secret passage if revealed
+    // Add secret passage option if revealed
     if (room->secretPassageRevealed)
     {
         fancy_print("%d) Use secret passage\n", optionCount++);
@@ -72,7 +74,7 @@ int displayRoomOptions(Room *room, int currentRoom, RoomStack *roomHistory)
     return optionCount - 1; // Return the total number of options displayed
 }
 
-// display room description
+// Display room description
 void displayRoomDescription(Room *room)
 {
     printf("\n------------------------------------------\n");
@@ -80,13 +82,13 @@ void displayRoomDescription(Room *room)
     {
         fancy_print("%s\n", room->description[i]);
     }
-    printf("------------------------------------------\n");
+    printf("------------------------------------------\n\n");
 }
 
-// display look-around text
+// Display look-around text
 void displayLookAroundText(Room *room)
 {
-    fancy_print("\n...You look around...\n");
+    fancy_print("\n...You look around...\n\n");
     for (int i = 0; i < room->lookAroundLineCount; i++)
     {
         fancy_print("%s\n", room->lookAroundText[i]);
@@ -95,8 +97,8 @@ void displayLookAroundText(Room *room)
 
 void startGame()
 {
-    Room **allRooms = initializeMap(); // Initialize rooms
-    int currentRoom = 0;               // Start in Room 0
+    Room **allRooms = initializeMap(); // Initialize rooms using initializeMap
+    int currentRoom = 0;               // Start in Room 0 (Tutorial)
     RoomStack roomHistory;
     initStack(&roomHistory); // Initialize the stack
 
@@ -104,11 +106,16 @@ void startGame()
     char command[50];
     int choice;
     int lastOptionIndex;
+    _Bool displayRoomDescriptionFlag = true; // Flag to control room description display
 
     while (1)
     {
-        // Display room description upon entry
-        displayRoomDescription(room);
+        // Display room description only when entering a room
+        if (displayRoomDescriptionFlag)
+        {
+            displayRoomDescription(room);
+            displayRoomDescriptionFlag = false;
+        }
 
         // Display room-specific options and get the count of options available
         lastOptionIndex = displayRoomOptions(room, currentRoom, &roomHistory);
@@ -124,7 +131,8 @@ void startGame()
             fancy_print("Available commands:\n");
             fancy_print("  help - Display this help message.\n");
             fancy_print("  exit - Exit the game.\n");
-            fancy_print("Room-specific actions are available as numbered options.\n");
+            fancy_print("Room-specific actions are available as numbered options.\n\n");
+            continue;
         }
         else if (equals(command, "exit"))
         {
@@ -132,96 +140,122 @@ void startGame()
             {
                 break;
             }
+            continue;
         }
-        else
+
+        // Convert command to an integer for room-specific options
+        choice = atoi(command);
+
+        if (choice < 1 || choice > lastOptionIndex)
         {
-            // Convert command to an integer for room-specific options
-            choice = atoi(command);
+            fancy_print("Invalid option. Please try again.\n\n");
+            continue;
+        }
 
-            if (choice < 1 || choice > lastOptionIndex)
-            {
-                fancy_print("Invalid option. Type 'help' for a list of available commands.\n");
-                continue;
-            }
+        // Handle room-specific actions based on the chosen option
+        int optionIndex = 1;
 
-            int optionIndex = 1;
-
-            // Option 1: Return to previous room
-            if (currentRoom != 0 && currentRoom != 10 && choice == optionIndex++)
+        // Option 1: Return to previous room
+        if (currentRoom != 0 && !isEmpty(&roomHistory) && choice == optionIndex++)
+        {
+            int previousRoom = pop(&roomHistory); // Get the previous room from the stack
+            if (previousRoom != -1)
             {
-                int previousRoom = pop(&roomHistory); // Get the previous room from the stack
-                if (previousRoom != -1)
-                {
-                    fancy_print("Returning to the previous room...\n");
-                    currentRoom = previousRoom;
-                    room = getRoom(currentRoom);
-                }
-                else
-                {
-                    fancy_print("No previous room to return to!\n");
-                }
-            }
-            // Option 2: Look around
-            else if (choice == optionIndex++)
-            {
-                displayLookAroundText(room);
-                if (room->hasSecretPassage && !room->secretPassageRevealed)
-                {
-                    fancy_print("You discover a hidden passage!\n\n");
-                    room->secretPassageRevealed = true;
-                }
-            }
-            // Option 3: Fight monster (if present)
-            else if (room->hasMonster && !room->monsterDefeated && choice == optionIndex++)
-            {
-                Character slime = getSlime(); // Example monster
-                startCombat(&slime);          // Handle combat
-                room->monsterDefeated = true;
-                fancy_print("The monster has been defeated!\n\n");
-            }
-            // Handle exits based on room-specific configuration
-            else if (room->exits[NORTH] != NONE && choice == optionIndex++)
-            {
-                fancy_print("You exit north.\n");
-                push(&roomHistory, currentRoom); // Push current room onto stack
-                currentRoom = room->exits[NORTH];
+                fancy_print("Returning to the previous room...\n\n");
+                currentRoom = previousRoom;
                 room = getRoom(currentRoom);
-            }
-            else if (room->exits[EAST] != NONE && choice == optionIndex++)
-            {
-                fancy_print("You exit east.\n");
-                push(&roomHistory, currentRoom); // Push current room onto stack
-                currentRoom = room->exits[EAST];
-                room = getRoom(currentRoom);
-            }
-            else if (room->exits[SOUTH] != NONE && choice == optionIndex++)
-            {
-                fancy_print("You exit south.\n");
-                push(&roomHistory, currentRoom); // Push current room onto stack
-                currentRoom = room->exits[SOUTH];
-                room = getRoom(currentRoom);
-            }
-            else if (room->exits[WEST] != NONE && choice == optionIndex++)
-            {
-                fancy_print("You exit west.\n");
-                push(&roomHistory, currentRoom); // Push current room onto stack
-                currentRoom = room->exits[WEST];
-                room = getRoom(currentRoom);
-            }
-            // Secret passage if revealed
-            else if (room->secretPassageRevealed && choice == optionIndex++)
-            {
-                fancy_print("You enter the secret passage.\n");
-                push(&roomHistory, currentRoom);  // Push current room onto stack
-                currentRoom = room->exits[NORTH]; // Adjust for direction
-                room = getRoom(currentRoom);
+                displayRoomDescriptionFlag = true; // Set flag to display description for the new room
             }
             else
             {
-                fancy_print("Invalid option. Please try again.\n");
+                fancy_print("No previous room to return to!\n\n");
             }
+        }
+        // Option 2: Look around
+        else if (choice == optionIndex++)
+        {
+            displayLookAroundText(room);
+            if (room->hasSecretPassage && !room->secretPassageRevealed)
+            {
+                fancy_print("\nYou discover a hidden passage!\n\n");
+                room->secretPassageRevealed = true;
+            }
+        }
+        // Option 3: Fight monster (if present)
+        else if (room->hasMonster && !room->monsterDefeated && choice == optionIndex++)
+        {
+            Character monster;
+
+            // Assign appropriate monster based on the room
+            if (currentRoom == 2)
+            {
+                monster = getSlime();
+            }
+            else if (currentRoom == 4 || currentRoom == 6)
+            {
+                monster = getSkeleton();
+            }
+            else if (currentRoom == 10)
+            {
+                monster = getKingSkeleton();
+            }
+
+            startCombat(&monster); // Handle combat
+
+            // End the game if in Room 10 and the monster is defeated
+            if (currentRoom == 10)
+            {
+                fancy_print("You are finally released from the shackles of the Temple of the Forgotten King.\n\n");
+                break;
+            }
+        }
+        // Handle exits based on room-specific configuration
+        else if (room->exits[NORTH] != NONE && choice == optionIndex++)
+        {
+            fancy_print("You sneak through the north exit.\n");
+            push(&roomHistory, currentRoom); // Push current room onto stack
+            currentRoom = room->exits[NORTH];
+            room = getRoom(currentRoom);
+            displayRoomDescriptionFlag = true; // Set flag to display description for the new room
+        }
+        else if (room->exits[EAST] != NONE && choice == optionIndex++)
+        {
+            fancy_print("You sneak through the east exit.\n");
+            push(&roomHistory, currentRoom); // Push current room onto stack
+            currentRoom = room->exits[EAST];
+            room = getRoom(currentRoom);
+            displayRoomDescriptionFlag = true;
+        }
+        else if (room->exits[SOUTH] != NONE && choice == optionIndex++)
+        {
+            fancy_print("You sneak through the south exit.\n");
+            push(&roomHistory, currentRoom); // Push current room onto stack
+            currentRoom = room->exits[SOUTH];
+            room = getRoom(currentRoom);
+            displayRoomDescriptionFlag = true;
+        }
+        else if (room->exits[WEST] != NONE && choice == optionIndex++)
+        {
+            fancy_print("You sneak through the west exit.\n");
+            push(&roomHistory, currentRoom); // Push current room onto stack
+            currentRoom = room->exits[WEST];
+            room = getRoom(currentRoom);
+            displayRoomDescriptionFlag = true;
+        }
+        // Secret passage if revealed
+        else if (room->secretPassageRevealed && choice == optionIndex++)
+        {
+            fancy_print("You enter the secret passage.\n");
+            push(&roomHistory, currentRoom); // Push current room onto stack
+            currentRoom = 5;                 // Connect all secret passages to Room 5
+            room = getRoom(currentRoom);
+            displayRoomDescriptionFlag = true;
+        }
+        else
+        {
+            fancy_print("Invalid option. Please try again.\n\n");
         }
     }
 
-    fancy_print("Thank you for playing");
+    fancy_print("Thank you for playing!");
 }
