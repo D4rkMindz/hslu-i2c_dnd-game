@@ -9,5 +9,22 @@ void get_input(const char *format, void *variable);
 
 void sleep_ms(int ms);
 
-void fancy_print(char *str, ...);
-#endif // UTILS_H
+void fancy_print(const char *str, ...);
+
+// Define the stack for room history
+#define MAX_STACK_SIZE 100
+
+typedef struct
+{
+    int data[MAX_STACK_SIZE];
+    int top;
+} RoomStack;
+
+// Stack functions
+void initStack(RoomStack *stack);
+_Bool isEmpty(RoomStack *stack);
+_Bool push(RoomStack *stack, int room);
+int pop(RoomStack *stack);
+int peek(RoomStack *stack);
+
+#endif

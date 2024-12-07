@@ -3,20 +3,19 @@ project(first C)
 
 set(CMAKE_C_STANDARD 99)
 
-add_executable(first main.c
-        game.c
-        game.h
-        combat/combat.c
-        combat/combat.h
-        map/map.c
-        map/map.h
-        game.c
-        constants.h
-        utils.c
-        utils.c
-        character/character.c
-        character/character.h
-        highscore/highscore.c
-        highscore/highscore.c
-        character/item.c
-        character/item.h)
+add_executable(first
+    main.c
+    game.c
+    game.h
+    combat/combat.c
+    combat/combat.h
+    map/map.c
+    map/map.h
+    constants.h
+    utils.c
+    character/character.c
+    character/character.h
+    highscore/highscore.c
+    character/item.c
+    character/item.h
+)

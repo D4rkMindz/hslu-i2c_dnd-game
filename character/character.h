@@ -2,9 +2,14 @@
 #define CHARACTER_H
 #include "../constants.h"
 
-typedef enum { WIZARD, BARBARIAN } CharacterType;
+typedef enum
+{
+    WIZARD,
+    BARBARIAN
+} CharacterType;
 
-typedef struct {
+typedef struct
+{
     char name[MAX_NAME_LEN];
     int health;
     int attackPower;
