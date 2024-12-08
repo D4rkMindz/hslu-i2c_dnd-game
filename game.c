@@ -10,7 +10,15 @@
 
 void initializeGame()
 {
+    printf("\n------------------------------------------\n");
     printf("\n\nWelcome to The Temple of the Fallen King!\n\n");
+    printf("\n------------------------------------------\n");
+    sleep_ms(1500);
+    printf("\nAvailable commands:\n");
+    printf("  help - Display this help message.\n");
+    printf("  exit - Exit the game.\n");
+    printf("Room-specific actions are available as numbered options.\n");
+    printf("\n------------------------------------------\n\n");
     createCharacter();
     Room **allRooms = initializeMap();
 }
@@ -33,7 +41,7 @@ int displayRoomOptions(Room *room, int currentRoom, RoomStack *roomHistory)
     printf("\n--- Room Options ---\n");
 
     // Add "Return to previous room" option only if not in Room 0
-    if (currentRoom != 0 && !isEmpty(roomHistory))
+    if (currentRoom != 0 && currentRoom != 10 && !isEmpty(roomHistory))
     {
         fancy_print("%d) Return to previous room\n", optionCount++);
     }
@@ -156,7 +164,7 @@ void startGame()
         int optionIndex = 1;
 
         // Option 1: Return to previous room
-        if (currentRoom != 0 && !isEmpty(&roomHistory) && choice == optionIndex++)
+        if (currentRoom != 0 && currentRoom != 10 && !isEmpty(&roomHistory) && choice == optionIndex++)
         {
             int previousRoom = pop(&roomHistory); // Get the previous room from the stack
             if (previousRoom != -1)
@@ -258,4 +266,5 @@ void startGame()
     }
 
     fancy_print("Thank you for playing!");
+    sleep_ms(5000);
 }

@@ -47,7 +47,7 @@ Room **initializeMap()
 
     // Room 0: Entrance
     const char *desc0[] = {
-        "\r... A heavy door slams shut behind you with a resounding finality, cutting off any chance of escape.\r",
+        "\r.... A heavy door slams shut behind you with a resounding finality, cutting off any chance of escape.\r",
         "You came to this Temple searching for gold and riches, as told in the legends, but a seed of doubt and fear has been planted in your heart.\r",
         "The air here is thick with dust and decay, and only one path lies open, leading north.\r"};
     const char *look0[] = {
@@ -65,8 +65,8 @@ Room **initializeMap()
         "The etchings tell fragmented stories.\r",
         "You see depictions of people bound to tables, figures cloaked in shadow hovering over them with strange tools, and symbols of life twisted into unnatural forms.\r",
         "Words in an old dialect speak of undying pain and the eternity of flesh.\r",
-        "It seems that this place might have been a workshop or laboratory.\r",
-        "The chest, though old, appears untouched by recent visitors.\r"};
+        "You open the chest to find a pair of extremely old-fashioned goggles.\r",
+        "Upon putting them on, you realise that they make you look extremely lame. You chuckle and continue on.\r"};
     setRoomDescriptions(rooms[1], desc1, 2, look1, 5);
     setRoomExits(rooms[1], 4, 2, NONE, NONE);
 
@@ -148,7 +148,7 @@ Room **initializeMap()
 
     // Room 8: The Final Gate
     const char *desc8[] = {
-        "A large heavy door lies in front of you. It gleams in the low light and you notice it is encrusted with many jewels.\r",
+        "A large heavy door lies on the northward wall. It gleams in the low light and you notice it is encrusted with many jewels.\r",
         "The air feels heavier, the silence more oppressive. You instinctively understand that this is your final destination.\r"};
     const char *look8[] = {
         "You find diagrams of a massive ritual, one that required sacrifices by the dozens.\r",

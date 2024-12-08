@@ -183,5 +183,6 @@ void startCombat(Character *enemy)
     else
     {
         fancy_print("\nYou have been defeated!\n");
+        fancy_print("\nYour vision goes dark...\n");
     }
 }

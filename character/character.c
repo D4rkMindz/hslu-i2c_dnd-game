@@ -23,7 +23,11 @@ void createCharacter()
     CharacterType type;
     while (!equals(class, "barbarian") && !equals(class, "wizard"))
     {
-        fancy_print("Select your characters class [barbarian,wizard]: ");
+        fancy_print("Your adventurous spirit has brought you to this Temple. You think about the abilities of adventurers you've known through the years...\n");
+        fancy_print("... a barbarian is a strong weapon fighter with no magic abilities...\n");
+        fancy_print("... a wizard has magic attacks, but is weak at combat with weapons...\n");
+        fancy_print("\nWhat do you specialize in?\n");
+        fancy_print("Select a Class [barbarian, wizard]: ");
         get_input("%s", class);
     }
     if (equals(class, "barbarian"))
@@ -65,7 +69,7 @@ void createCharacter()
     fancy_print("\nCharacter %s created with %d Health.\n", player.name, player.health);
 
     Potion felix = createPotion("Felix Felicis", POTION_SMALL);
-    fancy_print("You find a potion: %s. It gives you %d Health Points", felix.name, felix.buff);
+    fancy_print("You find a potion: %s. It gives you %d Health Points.", felix.name, felix.buff);
     consumePotion(&player, felix);
 }
 
