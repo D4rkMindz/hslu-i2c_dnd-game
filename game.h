@@ -1,7 +1,10 @@
 #ifndef GAME_H
 #define GAME_H
 
-void initializeGame();
-void startGame();
+_Bool setup_game(char *roomsFile);
+
+void initialize_game();
+
+void run_game();
 
 #endif

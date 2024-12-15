@@ -2,6 +2,6 @@
 #define COMBAT_H
 #include "../character/character.h"
 
-void startCombat(Character *enemy);
+_Bool combat(Character *enemy);
 
 #endif

@@ -109,11 +109,11 @@ _Bool isEmpty(RoomStack *stack)
 }
 
 // Push an element onto the stack
-_Bool push(RoomStack *stack, int room)
+_Bool push(RoomStack *stack, int roomID)
 {
     if (stack->top < MAX_STACK_SIZE - 1)
     {
-        stack->data[++stack->top] = room;
+        stack->data[++stack->top] = roomID;
         return 1;
     }
     return 0; // Stack overflow

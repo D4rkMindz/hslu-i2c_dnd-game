@@ -17,43 +17,39 @@ Character getEnemy(
 
 static Character player;
 
-void createCharacter()
-{
+void createCharacter() {
     char class[10];
     CharacterType type;
-    while (!equals(class, "barbarian") && !equals(class, "wizard"))
-    {
-        fancy_print("Your adventurous spirit has brought you to this Temple. You think about the abilities of adventurers you've known through the years...\n");
-        fancy_print("... a barbarian is a strong weapon fighter with no magic abilities...\n");
-        fancy_print("... a wizard has magic attacks, but is weak at combat with weapons...\n");
-        fancy_print("\nWhat do you specialize in?\n");
+    fancy_print(
+        "Your adventurous spirit has brought you to this Temple. You think about the abilities of adventurers you've known through the years...\n");
+    fancy_print("... a barbarian is a strong weapon fighter with no magic abilities.\n");
+    fancy_print("... a wizard has magic attacks, but is weak at combat with weapons.\n");
+    fancy_print("\nWhat do you specialize in?\n");
+    while (!equals(class, "barbarian") && !equals(class, "wizard")) {
         fancy_print("Select a Class [barbarian, wizard]: ");
         get_input("%s", class);
     }
-    if (equals(class, "barbarian"))
-    {
+    if (equals(class, "barbarian")) {
         type = BARBARIAN;
-    }
-    else
-    {
+    } else {
         type = WIZARD;
     }
-    fancy_print("Enter your character's name: ");
-    get_input("%s", player.name);
+    while (strlen(player.name) == 0) {
+        fancy_print("Enter your character's name: ");
+        get_input("%s", player.name);
+    }
     int health = CHARACTER_HEALTH;
     int attackPower = BARBARIAN_ATTACK;
     int defense = BARBARIAN_DEFENSE;
     char playerWeapon[25];
 
-    if (equals(class, "barbarian"))
-    {
+    if (equals(class, "barbarian")) {
         health = CHARACTER_HEALTH;
         attackPower = BARBARIAN_ATTACK;
         defense = BARBARIAN_DEFENSE;
         strcpy(playerWeapon, BARBARIAN_WEAPON);
     }
-    if (equals(class, "wizard"))
-    {
+    if (equals(class, "wizard")) {
         health = CHARACTER_HEALTH;
         attackPower = WIZARD_ATTACK;
         defense = WIZARD_DEFENSE;
@@ -73,33 +69,27 @@ void createCharacter()
     consumePotion(&player, felix);
 }
 
-void addHealth(Character *character, signed int health)
-{
+void addHealth(Character *character, signed int health) {
     character->health += health;
 
-    if (character->health > CHARACTER_HEALTH)
-    {
+    if (character->health > CHARACTER_HEALTH) {
         character->health = CHARACTER_HEALTH;
     }
 }
 
-void addPoints(Character *character, int points)
-{
+void addPoints(Character *character, int points) {
     character->pointValue += points;
 }
 
-void addDamage(Character *character, signed int health)
-{
+void addDamage(Character *character, signed int health) {
     character->health -= health;
 }
 
-_Bool isHealthy(Character *character)
-{
+_Bool isHealthy(Character *character) {
     return character->health > 0;
 }
 
-Character getSlime()
-{
+Character getSlime() {
     return getEnemy(
         "Slime",
         SLIME_HEALTH,
@@ -110,8 +100,7 @@ Character getSlime()
         SLIME_POINT_VALUE);
 }
 
-Character getSkeleton()
-{
+Character getSkeleton() {
     return getEnemy(
         "Skeleton",
         SKELETON_HEALTH,
@@ -122,8 +111,7 @@ Character getSkeleton()
         SKELETON_POINT_VALUE);
 }
 
-Character getKingSkeleton()
-{
+Character getKingSkeleton() {
     return getEnemy(
         "Skeleton King",
         ENDBOSS_HEALTH,
@@ -134,8 +122,7 @@ Character getKingSkeleton()
         ENDBOSS_POINT_VALUE);
 }
 
-Character *getPlayerCharacter()
-{
+Character *getPlayerCharacter() {
     return &player;
 }
 
@@ -146,8 +133,7 @@ Character getEnemy(
     const int defense,
     char main_weapon[MAX_WEAPON_NAME_LEN],
     const int healthReturn,
-    const int pointValue)
-{
+    const int pointValue) {
     Character enemy;
     strcpy(enemy.name, name);
     enemy.health = health;
