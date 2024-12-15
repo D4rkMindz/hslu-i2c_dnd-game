@@ -118,7 +118,7 @@ void display_look_around_text(Room *room) {
 
 void look_around(Room *room) {
     display_look_around_text(room);
-    if (room->hasSecretPassage && !room->secretPassageRevealed) {
+    if (room->secretPassage > 0 && !room->secretPassageRevealed) {
         fancy_print("\nYou discover a hidden passage!\n\n");
         room->secretPassageRevealed = true;
     }
@@ -264,7 +264,7 @@ void run_game() {
         else if (room->secretPassageRevealed && choice == optionIndex) {
             fancy_print("You enter the secret passage.\n");
             push(&roomHistory, currentRoomID); // Push current room onto stack
-            currentRoomID = 5; // Connect all secret passages to Room 5
+            currentRoomID = room->secretPassage; // Connect all secret passages to Room 5
             room = get_room(currentRoomID);
             displayRoomDescriptionFlag = true;
         } else {

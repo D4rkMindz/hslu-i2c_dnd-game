@@ -25,8 +25,8 @@ typedef struct {
     char *name;
     bool hasMonster;
     char *monsters[MAX_MONSTER_COUNT];
-    bool hasSecretPassage;
     bool monsterDefeated;
+    int secretPassage;
     bool secretPassageRevealed;
     int exits[4]; // Stores room numbers for exits in NORTH, EAST, SOUTH, WEST directions
     char *description[MAX_DESCRIPTION_LINES]; // Array for multi-line descriptions

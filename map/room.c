@@ -29,7 +29,7 @@ Room *get_room(int roomID) {
 }
 
 void fail_setup(const char *reason, int i) {
-    fprintf(stderr, reason);
+    fprintf(stderr, "%s", reason);
 
     // If something unexpected happens, cleanup and return NULL
     for (int k = 0; k < i; k++) {
@@ -126,7 +126,7 @@ void load_rooms_from_file(const char *path, int *roomCountOut) {
         room->hasMonster = (monstersCount > 0);
 
         // Set defaults for fields not in JSON
-        room->hasSecretPassage = read_bool(room_obj, "secret_passage");
+        room->secretPassage = read_int(room_obj, "secret_passage");
         room->monsterDefeated = false;
         room->secretPassageRevealed = false;
 
