@@ -43,7 +43,7 @@ _Bool check_exit_confirmation(char command[50]) {
 }
 
 // Display room-specific options dynamically based on room state
-Command display_room_options(const Room *room, RoomStack *roomHistory) {
+Command display_available_commands(const Room *room, RoomStack *roomHistory) {
     Command commands = {-1, -1, -1, -1, -1, -1, -1, -1};
     int optionCount = 1;
     printf("\n--- Room Options ---\n");
@@ -112,27 +112,6 @@ void display_room_description(Room *room) {
     printf("------------------------------------------\n\n");
 }
 
-// Display look-around text
-void display_look_around_text(Room *room) {
-    fancy_print("\n...You look around...\n\n");
-    int lookAroundTextCount = sizeof(room->lookAroundText) / sizeof(room->lookAroundText[0]);
-    for (int i = 0; i < lookAroundTextCount; i++) {
-        if (room->lookAroundText[i] != NULL) {
-            fancy_print("%s\n", room->lookAroundText[i]);
-        } else {
-            break;
-        }
-    }
-}
-
-void look_around(Room *room) {
-    display_look_around_text(room);
-    if (room->secretPassage > 0 && !room->secretPassageRevealed) {
-        fancy_print("\nYou discover a hidden passage!\n\n");
-        room->secretPassageRevealed = true;
-    }
-}
-
 Room *move_to_room(Room *currentRoom, Direction direction) {
     char *directionalWord = "your chosen";
     if (direction == NORTH) {
@@ -157,7 +136,28 @@ Room *move_to_room(Room *currentRoom, Direction direction) {
     return room;
 }
 
-bool fight_monster(const Room *room) {
+// Display look-around text
+void display_look_around_text(Room *room) {
+    fancy_print("\n...You look around...\n\n");
+    int lookAroundTextCount = sizeof(room->lookAroundText) / sizeof(room->lookAroundText[0]);
+    for (int i = 0; i < lookAroundTextCount; i++) {
+        if (room->lookAroundText[i] != NULL) {
+            fancy_print("%s\n", room->lookAroundText[i]);
+        } else {
+            break;
+        }
+    }
+}
+
+void look_around(Room *room) {
+    display_look_around_text(room);
+    if (room->secretPassage > 0 && !room->secretPassageRevealed) {
+        fancy_print("\nYou discover a hidden passage!\n\n");
+        room->secretPassageRevealed = true;
+    }
+}
+
+_Bool fight_monster(const Room *room) {
     _Bool gameOver = false;
 
     if (!room->hasMonster) {
@@ -239,7 +239,7 @@ void run_game() {
         }
 
         // Display room-specific options and get the count of options available
-        Command commands = display_room_options(room, &roomHistory);
+        Command commands = display_available_commands(room, &roomHistory);
 
         // Get input from the player
         printf("\nEnter a command or option number: ");
@@ -319,5 +319,6 @@ void run_game() {
     }
 
     fancy_print("Thank you for playing!");
+    // TODO highscore here
     sleep_ms(5000);
 }
