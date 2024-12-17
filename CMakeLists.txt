@@ -22,4 +22,5 @@ add_executable(FallenKingdom
         map/file_parsing.h
         lib/cJSON.c
         lib/cJSON.h
+        highscore/highscore.h
 )

@@ -8,7 +8,7 @@
 #include "../utils.h"
 #include "../character/character.h"
 
-_Bool combat(Character *enemy) {
+_Bool combat(Character *enemy, int *score) {
     Character *player = getPlayerCharacter();
 
     fancy_print("\nA %s appears!\n", enemy->name);
@@ -150,6 +150,7 @@ _Bool combat(Character *enemy) {
         fancy_print("You regain %d Health Points!\n", enemy->healthReturn);
         addHealth(player, enemy->healthReturn);
         addPoints(player, enemy->pointValue);
+        score += enemy->pointValue;
     } else {
         fancy_print("\nYou have been defeated!\n");
         fancy_print("\nYour vision goes dark...\n");

@@ -52,6 +52,19 @@ cJSON *read_file_json(const char *path) {
     return json;
 }
 
+void write_file_json(const char *path, cJSON *json) {
+    FILE *f = fopen(path, "w+");
+    if (f == NULL) {
+        fclose(f);
+        return;
+    }
+    char *content = cJSON_Print(json);
+    fputs(content, f);
+    fclose(f);
+    cJSON_free(content);
+    cJSON_Delete(json);
+}
+
 cJSON *read_array(cJSON *root, const char *path) {
     cJSON *array = cJSON_GetObjectItemCaseSensitive(root, path);
     if (!array || !cJSON_IsArray(array)) {

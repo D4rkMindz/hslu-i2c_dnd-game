@@ -1,5 +1,8 @@
 #ifndef CONSTANTS_H
 #define CONSTANTS_H
+
+#define DEBUG 1
+
 #define MAX_NAME_LEN 50
 #define MAX_WEAPON_NAME_LEN 50
 

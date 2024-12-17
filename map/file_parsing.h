@@ -8,6 +8,8 @@
 
 cJSON *read_file_json(const char *path);
 
+void write_file_json(const char *path, cJSON *json);
+
 cJSON *read_array(cJSON *root, const char *path);
 
 int read_int(cJSON *json, const char *path);

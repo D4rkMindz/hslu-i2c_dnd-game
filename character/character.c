@@ -36,7 +36,7 @@ void createCharacter() {
     }
     while (strlen(player.name) == 0) {
         fancy_print("Enter your character's name: ");
-        get_input("%s", player.name);
+        get_input(" %[^\n]s", player.name);
     }
     int health = CHARACTER_HEALTH;
     int attackPower = BARBARIAN_ATTACK;

@@ -6,7 +6,8 @@
 #define ROOM_H
 #define MAX_DESCRIPTION_LINES 5
 #define MAX_LOOK_AROUND_LINES 5
-#define MAX_MONSTER_COUNT 2
+#define MAX_MONSTER_COUNT 5
+#define MAX_ROOM_COUNT 25
 #include <stdbool.h>
 #include "../character/item.h"
 
@@ -35,6 +36,12 @@ typedef struct {
     // int lookAroundLineCount; // Number of lines in the look-around text
     Potion loot[5];
 } Room;
+
+
+typedef struct {
+    Room *data;
+    int size;
+} RoomArray;
 
 void load_rooms_from_file(const char *path, int *roomCountOut);
 

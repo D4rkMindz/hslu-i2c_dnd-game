@@ -2,6 +2,6 @@
 #define COMBAT_H
 #include "../character/character.h"
 
-_Bool combat(Character *enemy);
+_Bool combat(Character *enemy, int *score);
 
 #endif

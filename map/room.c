@@ -12,13 +12,13 @@
 #include "../lib/cJSON.h"
 
 
-static Room *rooms;
+static RoomArray rooms = {NULL, 0};
 // Function to retrieve a room by its number
 Room *get_room(int roomID) {
-    if (roomID > 0 && roomID - 1 < sizeof(&rooms)) {
-        int pointer = sizeof(&rooms);
+    if (roomID > 0 && roomID - 1 < rooms.size) {
+        int pointer = rooms.size;
         while (pointer >= 0) {
-            Room *room = &rooms[pointer];
+            Room *room = &rooms.data[pointer];
             if (room && room->id == roomID) {
                 return room;
             }
@@ -33,15 +33,17 @@ void fail_setup(const char *reason, int i) {
 
     // If something unexpected happens, cleanup and return NULL
     for (int k = 0; k < i; k++) {
-        free((char *) rooms[k].name);
-        for (int d = 0; d < sizeof(rooms[k].description); d++) {
-            free((char *) rooms[k].description[d]);
+        free((char *) rooms.data[k].name);
+        for (int d = 0; d < sizeof(rooms.data[k].description); d++) {
+            free((char *) rooms.data[k].description[d]);
         }
-        for (int l = 0; l < sizeof(rooms[k].lookAroundText); l++) {
-            free((char *) rooms[k].lookAroundText[l]);
+        for (int l = 0; l < sizeof(rooms.data[k].lookAroundText); l++) {
+            free((char *) rooms.data[k].lookAroundText[l]);
         }
     }
-    free(rooms);
+    free(rooms.data);
+    rooms.data = NULL;
+    rooms.size = 0;
     reset();
 }
 
@@ -68,7 +70,8 @@ void load_rooms_from_file(const char *path, int *roomCountOut) {
     }
     int roomCount = cJSON_GetArraySize(rooms_array);
 
-    rooms = calloc(roomCount, sizeof(Room));
+    rooms.data = calloc(roomCount, sizeof(Room));
+    rooms.size = roomCount;
 
     for (int i = 0; i < roomCount; i++) {
         char failureReason[200];
@@ -79,7 +82,7 @@ void load_rooms_from_file(const char *path, int *roomCountOut) {
             fail_setup(failureReason, i);
             return;
         }
-        Room *room = &rooms[i];
+        Room *room = &rooms.data[i];
         room->id = read_int(room_obj, "id");
         room->name = read_string(room_obj, "name");
 
@@ -117,7 +120,7 @@ void load_rooms_from_file(const char *path, int *roomCountOut) {
         cJSON *monsters = read_array(room_obj, "monsters");
         int monstersCount = cJSON_GetArraySize(monsters);
         for (int d = 0; d < monstersCount && d < MAX_MONSTER_COUNT; d++) {
-            room->monsters[d] = read_array_item_string(lookAroundText, d);
+            room->monsters[d] = read_array_item_string(monsters, d);
             if (room->monsters[d] == NULL) {
                 break;
             }

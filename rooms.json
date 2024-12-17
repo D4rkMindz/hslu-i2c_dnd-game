@@ -25,7 +25,9 @@
         "You came to this Temple searching for gold and riches, as told in the legends, but a seed of doubt and fear has been planted in your heart.\r",
         "The air here is thick with dust and decay, and only one path lies open, leading north.\r"
       ],
-      "monsters": [],
+      "monsters": [
+        "Skeleton King"
+      ],
       "exits": {
         "north": 3,
         "east": null,
@@ -176,7 +178,7 @@
     },
     {
       "id": 8,
-      "name": "",
+      "name": "Repository of Dark Knowledge",
       "description": [
         "A treasure chest rests here, the dust around it undisturbed.\r",
         "Clear and precise etchings cover the walls, as if painstakingly preserved.\r"
@@ -186,9 +188,7 @@
         "The texts speak of living beyond one's mortal span and imprisonment of the self.\r",
         "This room exudes a sense of dread, as though what is written here was never meant to be read by anyone still alive.\r"
       ],
-      "monsters": [
-        ""
-      ],
+      "monsters": [],
       "exits": {
         "north": null,
         "east": 9,

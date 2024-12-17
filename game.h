@@ -5,7 +5,7 @@ _Bool setup_game(char *roomsFile);
 
 void initialize_game();
 
-void run_game();
+void run_game(char *highscoreFile);
 
 typedef struct {
     int returnToPrevious;

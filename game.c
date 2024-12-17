@@ -6,7 +6,9 @@
 #include "utils.h"
 #include "character/character.h"
 #include "combat/combat.h"
+#include "map/file_parsing.h"
 #include "map/room.h"
+#include "highscore/highscore.h"
 RoomStack roomHistory;
 
 _Bool setup_game(char *roomsFile) {
@@ -101,6 +103,9 @@ Command display_available_commands(const Room *room, RoomStack *roomHistory) {
 // Display room description
 void display_room_description(Room *room) {
     printf("\n------------------------------------------\n");
+    if (DEBUG) {
+        printf("DEBUG: room id=%i name=%s\n", room->id, room->name);
+    }
     int descriptionCount = sizeof(room->description) / sizeof(room->description[0]);
     for (int i = 0; i < descriptionCount; i++) {
         if (room->description[i] != NULL) {
@@ -113,7 +118,7 @@ void display_room_description(Room *room) {
 }
 
 Room *move_to_room(Room *currentRoom, Direction direction) {
-    char *directionalWord = "your chosen";
+    char *directionalWord = "your chosen"; // fallback that still would make sense
     if (direction == NORTH) {
         directionalWord = "north";
     } else if (direction == EAST) {
@@ -123,7 +128,7 @@ Room *move_to_room(Room *currentRoom, Direction direction) {
     } else if (direction == WEST) {
         directionalWord = "west";
     }
-    fancy_print("You sneakt through the %s exit.\n", directionalWord);
+    fancy_print("You sneak through the %s exit.\n", directionalWord);
     push(&roomHistory, currentRoom->id); // Push current room onto stack
     int roomID = currentRoom->exits[direction];
     if (roomID == NONE) {
@@ -132,6 +137,10 @@ Room *move_to_room(Room *currentRoom, Direction direction) {
     }
 
     Room *room = get_room(roomID);
+
+    if (!room) {
+        return currentRoom;
+    }
 
     return room;
 }
@@ -157,7 +166,7 @@ void look_around(Room *room) {
     }
 }
 
-_Bool fight_monster(const Room *room) {
+_Bool fight_monster(const Room *room, int *highscore) {
     _Bool gameOver = false;
 
     if (!room->hasMonster) {
@@ -178,7 +187,7 @@ _Bool fight_monster(const Room *room) {
             } else {
                 monster = getSlime();
             }
-            _Bool defeatedEnemy = combat(&monster); // Handle combat
+            _Bool defeatedEnemy = combat(&monster, highscore); // Handle combat
             if (!defeatedEnemy) {
                 gameOver = true;
                 return gameOver;
@@ -219,10 +228,11 @@ char *getCommand(Command commands, const int command) {
     if (commands.moveThroughSecretPassage == command) {
         return "moveThroughSecretPassage";
     }
-    return "invalidCommand";;
+    return "invalidCommand";
 }
 
-void run_game() {
+void run_game(char *highscoreFile) {
+    int highscore = 0;
     int currentRoomID = 1; // Start in Room 0 (Tutorial)
 
     initStack(&roomHistory); // Initialize the stack
@@ -283,7 +293,7 @@ void run_game() {
         }
         // Option 2: Fight monster (if present)
         if (commands.fightMonsters == choice) {
-            _Bool gameOver = fight_monster(room);
+            _Bool gameOver = fight_monster(room, &highscore);
             if (gameOver) break;
             room->monsterDefeated = true;
         }
@@ -313,12 +323,14 @@ void run_game() {
             fancy_print("You enter the secret passage.\n");
             push(&roomHistory, currentRoomID); // Push current room onto stack
             currentRoomID = room->secretPassage; // Connect all secret passages to Room 5
-            room = get_room(currentRoomID);
+            room = get_room(currentRoomID); // this room MIGHT be empty, accept it for now
             displayRoomDescriptionFlag = true;
         }
     }
 
-    fancy_print("Thank you for playing!");
-    // TODO highscore here
+    fancy_print("\nThank you for playing!\n");
+
+    handle_highscore(highscore, highscoreFile);
+
     sleep_ms(5000);
 }
