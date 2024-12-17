@@ -332,6 +332,4 @@ void run_game(char *highscoreFile) {
     fancy_print("\nThank you for playing!\n");
 
     handle_highscore(highscore, highscoreFile);
-
-    sleep_ms(5000);
 }
