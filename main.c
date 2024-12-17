@@ -8,7 +8,7 @@ int main(int argc, char *argv[]) {
     char *highscoreFile = NULL;
     // argc - 1 to ensure that no argv overflow is created
     for (int i = 1; i < argc - 1; i++) {
-        if (equals(argv[i], "--Rooms") || equals(argv[i], "-r")) {
+        if (equals(argv[i], "--rooms") || equals(argv[i], "-r")) {
             roomsFile = argv[i + 1];
         }
         if (equals_case_insensitive(argv[i], "--highscores") || equals_case_insensitive(argv[i], "-h")) {
