@@ -61,6 +61,12 @@ Command display_available_commands(const Room *room, RoomStack *roomHistory) {
         fancy_print("%d) Return to previous room\n", optionCount++);
     }
 
+    if (!roomHasAnyExit) {
+        // allow the look around option for boss fights
+        commands.lookAround = optionCount;
+        fancy_print("%d) Look around\n", optionCount++);
+    }
+
     // Option 2: Add "Fight monster" option if there is a monster in the room
     if (room->hasMonster && !room->monsterDefeated) {
         commands.fightMonsters = optionCount;
