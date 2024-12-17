@@ -187,11 +187,12 @@ _Bool fight_monster(const Room *room, int *highscore) {
             } else {
                 monster = getSlime();
             }
-            _Bool defeatedEnemy = combat(&monster, highscore); // Handle combat
+            _Bool defeatedEnemy = combat(&monster); // Handle combat
             if (!defeatedEnemy) {
                 gameOver = true;
                 return gameOver;
             }
+            (*highscore) += monster.pointValue;
         }
     }
 

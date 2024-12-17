@@ -25,9 +25,7 @@
         "You came to this Temple searching for gold and riches, as told in the legends, but a seed of doubt and fear has been planted in your heart.\r",
         "The air here is thick with dust and decay, and only one path lies open, leading north.\r"
       ],
-      "monsters": [
-        "Skeleton King"
-      ],
+      "monsters": [],
       "exits": {
         "north": 3,
         "east": null,
