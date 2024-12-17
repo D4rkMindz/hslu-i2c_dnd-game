@@ -1,11 +1,20 @@
-# DnD Game
+# DnD Game - Fallen Kingdom
 
-## Installation
+## Running Fallen Kingdom
 
-1. Clone repository
-2. Ensure that the parameter --rooms is given as argument for your run configuration (example: --rooms
-   /Users/developer/code/c/fallen-kingdom/rooms.json)
-3. Build & Success
+You can run the executables through your terminal with the following commands.
+It is required to provide the rooms.json file. We provide an example rooms.json file at the root of this project,
+but you can also write your Own Custom Adventure by following the configuration guide further below.
+
+Run on MacOS / Linux: 
+```bash
+$ ./FallenKingdom --rooms ./rooms.json
+```
+
+Run on Windows:
+```powershell
+$ .\FallenKingdom.exe --rooms .\rooms.json
+```
 
 ## Configuration
 
@@ -38,6 +47,9 @@ The rooms are expandable, the boss room must have no exits.
 
 Use ./rooms.json as reference.
 
-```bash
-$ ./FallenKingdom --rooms ./rooms.json
-```
+## Installation
+
+1. Clone repository
+2. Ensure that the parameter --rooms is given as argument for your run configuration (example: --rooms
+   /Users/developer/code/c/fallen-kingdom/rooms.json)
+3. Build & Success
