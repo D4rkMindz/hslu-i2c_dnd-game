@@ -21,9 +21,9 @@
         "The air here is thick with dust and decay, and only one path lies open, leading north.\r"
       ],
       "look_around": [
-        ".... A heavy door slams shut behind you with a resounding finality, cutting off any chance of escape.\r",
-        "You came to this Temple searching for gold and riches, as told in the legends, but a seed of doubt and fear has been planted in your heart.\r",
-        "The air here is thick with dust and decay, and only one path lies open, leading north.\r"
+        "As you run your hands over the cold stone walls, you find that the walls are etched with faint, weathered symbols, perhaps once bearing warnings or tales, but now too worn to decipher.\r",
+        "It is as though time itself tried to erase the secrets that this place holds.\r",
+        "You look back towards the entrance you came through and push on the door with all your strength. It doesn't even budge.\r"
       ],
       "monsters": [],
       "exits": {
@@ -79,7 +79,7 @@
         "south": null,
         "west": 2
       },
-      "secret_passage": 5
+      "secret_passage": 6
     },
     {
       "id": 4,
@@ -172,7 +172,7 @@
         "south": 4,
         "west": null
       },
-      "secret_passage": 5
+      "secret_passage": 6
     },
     {
       "id": 8,
